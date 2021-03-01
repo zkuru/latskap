@@ -3,7 +3,7 @@ plugins {
     id 'org.jetbrains.intellij' version '0.7.2'
 }
 
-group 'org.example'
+group 'com.latskap'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -16,8 +16,10 @@ dependencies {
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
+    plugins = ['java', 'JUnit']
     version '2020.2.3'
 }
+
 patchPluginXml {
     changeNotes """
       Add change notes here.<br>
