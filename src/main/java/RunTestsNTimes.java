@@ -13,6 +13,8 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Optional;
+
 import static com.intellij.rt.execution.junit.RepeatCount.N;
 
 public class RunTestsNTimes extends AnAction {
@@ -36,28 +38,25 @@ public class RunTestsNTimes extends AnAction {
         RepeatTestsDialog repeatTestsDialog = new RepeatTestsDialog();
         repeatTestsDialog.show();
 
-        ExecutionEnvironment environment = getExecutionEnvironment(e);
-        if (environment != null) {
-            RunnerAndConfigurationSettings runnerAndConfigurationSettings = environment.getRunnerAndConfigurationSettings();
-            executeIfSettingsArePresent(environment, runnerAndConfigurationSettings, repeatTestsDialog);
-        }
+        Optional<ExecutionEnvironment> environment = getExecutionEnvironment(e);
+        environment.ifPresent(executionEnvironment -> executeIfRunnerSettingsArePresent(executionEnvironment, repeatTestsDialog));
     }
 
-    private static ExecutionEnvironment getExecutionEnvironment(AnActionEvent e) {
+    private static Optional<ExecutionEnvironment> getExecutionEnvironment(AnActionEvent e) {
         Project project = e.getProject();
         if (project != null) {
             RunContentDescriptor selectedContent = RunContentManager.getInstance(project).getSelectedContent();
             if (selectedContent != null) {
                 DataContext dataContext = DataManager.getInstance().getDataContext(selectedContent.getComponent());
-                return LangDataKeys.EXECUTION_ENVIRONMENT.getData(dataContext);
+                return Optional.ofNullable(LangDataKeys.EXECUTION_ENVIRONMENT.getData(dataContext));
             }
         }
-        return null;
+        return Optional.empty();
     }
 
-    private static void executeIfSettingsArePresent(ExecutionEnvironment environment,
-                                                    RunnerAndConfigurationSettings runnerAndConfigurationSettings,
-                                                    RepeatTestsDialog repeatTestsDialog) {
+    private static void executeIfRunnerSettingsArePresent(ExecutionEnvironment environment,
+                                                          RepeatTestsDialog repeatTestsDialog) {
+        RunnerAndConfigurationSettings runnerAndConfigurationSettings = environment.getRunnerAndConfigurationSettings();
         if (runnerAndConfigurationSettings != null) {
             updateJUnitConfiguration(runnerAndConfigurationSettings, repeatTestsDialog);
             execute(environment);
