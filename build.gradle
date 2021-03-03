@@ -14,7 +14,6 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
-// See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
     plugins = ['java', 'JUnit']
     version '2020.2.3'
