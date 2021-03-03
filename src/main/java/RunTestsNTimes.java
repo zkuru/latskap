@@ -36,18 +36,23 @@ public class RunTestsNTimes extends AnAction {
         RepeatTestsDialog repeatTestsDialog = new RepeatTestsDialog();
         repeatTestsDialog.show();
 
+        ExecutionEnvironment environment = getExecutionEnvironment(e);
+        if (environment != null) {
+            RunnerAndConfigurationSettings runnerAndConfigurationSettings = environment.getRunnerAndConfigurationSettings();
+            executeIfSettingsArePresent(environment, runnerAndConfigurationSettings, repeatTestsDialog);
+        }
+    }
+
+    private static ExecutionEnvironment getExecutionEnvironment(AnActionEvent e) {
         Project project = e.getProject();
         if (project != null) {
             RunContentDescriptor selectedContent = RunContentManager.getInstance(project).getSelectedContent();
             if (selectedContent != null) {
                 DataContext dataContext = DataManager.getInstance().getDataContext(selectedContent.getComponent());
-                ExecutionEnvironment environment = LangDataKeys.EXECUTION_ENVIRONMENT.getData(dataContext);
-                if (environment != null) {
-                    RunnerAndConfigurationSettings runnerAndConfigurationSettings = environment.getRunnerAndConfigurationSettings();
-                    executeIfSettingsArePresent(environment, runnerAndConfigurationSettings, repeatTestsDialog);
-                }
+                return LangDataKeys.EXECUTION_ENVIRONMENT.getData(dataContext);
             }
         }
+        return null;
     }
 
     private static void executeIfSettingsArePresent(ExecutionEnvironment environment,
