@@ -10,7 +10,7 @@
 
     <actions>
         <action id="RunTestsNTimes" class="RunTestsNTimes" text="Run Tests Multiple Times"
-                description="Runs test multiple times" icon="/icons/science.png">
+                description="Runs test multiple times" icon="/icons/actionIcon.svg">
             <add-to-group group-id="Runner.Layout" anchor="last"/>
         </action>
     </actions>
