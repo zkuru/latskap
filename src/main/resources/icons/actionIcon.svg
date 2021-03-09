@@ -1,4 +1,4 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 2048 2048">
-	<rect fill-opacity="0" x="64" y="64" width="1920" height="1920" rx="128" ry="128" fill="#40b6e0"></rect>
-	<g transform="scale(1)"><path fill-opacity="1" transform="translate(368.64, 1740.32) rotate(180) scale(-1, 1)" fill="#187243" d="M266 1493h303l215 -1085l211 1085h260l-288 -1493h-293l-225 1085l-211 -1085h-263z"></path></g>
+	<circle fill-opacity="0" r="896" cx="1024" cy="1024" fill="#ffffff"></circle>
+	<g transform="scale(1)"><path fill-opacity="1" transform="translate(409.6, 1760.8) rotate(180) scale(-1, 1)" fill="#499c54" d="M266 1493h303l215 -1085l211 1085h260l-288 -1493h-293l-225 1085l-211 -1085h-263z"></path></g>
 </svg>
