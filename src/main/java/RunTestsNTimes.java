@@ -23,23 +23,26 @@ public class RunTestsNTimes extends AnAction {
         e.getPresentation().setEnabledAndVisible(isEnabled(e));
     }
 
-    private static boolean isEnabled(AnActionEvent e) {
-        Project project = e.getProject();
-        if (project == null)
-            return false;
-        ExecutionEnvironment environment = LangDataKeys.EXECUTION_ENVIRONMENT.getData(DataManager.getInstance().getDataContext(RunContentManager.getInstance(project).getSelectedContent().getComponent()));
-        if (environment == null)
-            return false;
-        return environment.getRunProfile() instanceof JUnitConfiguration;
-    }
-
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
         RepeatTestsDialog repeatTestsDialog = new RepeatTestsDialog();
         repeatTestsDialog.show();
 
+        getExecutionEnvironment(e)
+                .ifPresent(env -> getJUnitConfiguration(env)
+                        .ifPresent(conf -> {
+                            updateJUnitConfiguration(conf, repeatTestsDialog);
+                            execute(env);
+                        })
+                );
+    }
+
+    private static boolean isEnabled(AnActionEvent e) {
+        Project project = e.getProject();
+        if (project == null)
+            return false;
         Optional<ExecutionEnvironment> environment = getExecutionEnvironment(e);
-        environment.ifPresent(executionEnvironment -> executeIfRunnerSettingsArePresent(executionEnvironment, repeatTestsDialog));
+        return environment.isPresent() && environment.get().getRunProfile() instanceof JUnitConfiguration;
     }
 
     private static Optional<ExecutionEnvironment> getExecutionEnvironment(AnActionEvent e) {
@@ -54,18 +57,15 @@ public class RunTestsNTimes extends AnAction {
         return Optional.empty();
     }
 
-    private static void executeIfRunnerSettingsArePresent(ExecutionEnvironment environment,
-                                                          RepeatTestsDialog repeatTestsDialog) {
+    private static Optional<JUnitConfiguration> getJUnitConfiguration(ExecutionEnvironment environment) {
         RunnerAndConfigurationSettings runnerAndConfigurationSettings = environment.getRunnerAndConfigurationSettings();
-        if (runnerAndConfigurationSettings != null) {
-            updateJUnitConfiguration(runnerAndConfigurationSettings, repeatTestsDialog);
-            execute(environment);
-        }
+        return runnerAndConfigurationSettings != null
+                ? Optional.of((JUnitConfiguration) runnerAndConfigurationSettings.getConfiguration())
+                : Optional.empty();
     }
 
-    private static void updateJUnitConfiguration(RunnerAndConfigurationSettings runnerAndConfigurationSettings,
+    private static void updateJUnitConfiguration(JUnitConfiguration jUnitConfiguration,
                                                  RepeatTestsDialog repeatTestsDialog) {
-        JUnitConfiguration jUnitConfiguration = (JUnitConfiguration) runnerAndConfigurationSettings.getConfiguration();
         jUnitConfiguration.setRepeatMode(N);
         jUnitConfiguration.setRepeatCount(getRepeatCountAsInt(repeatTestsDialog));
     }
