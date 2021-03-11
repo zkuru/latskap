@@ -9,8 +9,8 @@
     <depends>JUnit</depends>
 
     <actions>
-        <action id="RunTestsNTimes" class="RunTestsNTimes" text="Run Tests Multiple Times"
-                description="Runs test multiple times" icon="/icons/actionIcon.svg">
+        <action id="RunTestsNTimesAction" class="RunTestsNTimesAction" text="Run Tests N Times"
+                description="Runs test N times" icon="/icons/actionIcon.svg">
             <add-to-group group-id="Runner.Layout" anchor="last"/>
         </action>
     </actions>

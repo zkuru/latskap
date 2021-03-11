@@ -17,7 +17,7 @@ import java.util.Optional;
 
 import static com.intellij.rt.execution.junit.RepeatCount.N;
 
-public class RunTestsNTimes extends AnAction {
+public class RunTestsNTimesAction extends AnAction {
     @Override
     public void update(AnActionEvent e) {
         e.getPresentation().setEnabledAndVisible(isEnabled(e));
@@ -25,13 +25,13 @@ public class RunTestsNTimes extends AnAction {
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
-        RepeatTestsDialog repeatTestsDialog = new RepeatTestsDialog();
-        repeatTestsDialog.show();
+        RepeatCountDialog repeatCountDialog = new RepeatCountDialog();
+        repeatCountDialog.show();
 
         getExecutionEnvironment(e)
                 .ifPresent(env -> getJUnitConfiguration(env)
                         .ifPresent(conf -> {
-                            updateJUnitConfiguration(conf, repeatTestsDialog);
+                            updateJUnitConfiguration(conf, repeatCountDialog);
                             execute(env);
                         })
                 );
@@ -65,9 +65,9 @@ public class RunTestsNTimes extends AnAction {
     }
 
     private static void updateJUnitConfiguration(JUnitConfiguration jUnitConfiguration,
-                                                 RepeatTestsDialog repeatTestsDialog) {
+                                                 RepeatCountDialog repeatCountDialog) {
         jUnitConfiguration.setRepeatMode(N);
-        jUnitConfiguration.setRepeatCount(getRepeatCountAsInt(repeatTestsDialog));
+        jUnitConfiguration.setRepeatCount(getRepeatCountAsInt(repeatCountDialog));
     }
 
     private static void execute(ExecutionEnvironment environment) {
@@ -78,7 +78,7 @@ public class RunTestsNTimes extends AnAction {
         }
     }
 
-    private static int getRepeatCountAsInt(RepeatTestsDialog repeatTestsDialog) {
-        return Integer.parseInt(repeatTestsDialog.getRepeatCount().getText());
+    private static int getRepeatCountAsInt(RepeatCountDialog repeatCountDialog) {
+        return Integer.parseInt(repeatCountDialog.getRepeatCount().getText());
     }
 }

@@ -4,13 +4,13 @@ import com.sun.istack.Nullable;
 import javax.swing.*;
 import java.awt.*;
 
-public class RepeatTestsDialog extends DialogWrapper {
+public class RepeatCountDialog extends DialogWrapper {
     private JTextField repeatCount;
 
-    public RepeatTestsDialog() {
+    public RepeatCountDialog() {
         super(true);
         init();
-        setTitle("Run Tests N Times");
+        setTitle("Set Repeat Count");
     }
 
     @Nullable

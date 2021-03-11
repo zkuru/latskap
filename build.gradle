@@ -18,9 +18,3 @@ intellij {
     plugins = ['java', 'JUnit']
     version '2020.2.3'
 }
-
-patchPluginXml {
-    changeNotes """
-      Add change notes here.<br>
-      <em>most HTML tags may be used</em>"""
-}
