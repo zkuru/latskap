@@ -1,3 +1,5 @@
+package com.latskap.action;
+
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.RunnerAndConfigurationSettings;
 import com.intellij.execution.junit.JUnitConfiguration;
@@ -11,8 +13,10 @@ import com.intellij.openapi.actionSystem.DataContext;
 import com.intellij.openapi.actionSystem.LangDataKeys;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
+import com.latskap.dialog.RepeatCountDialog;
 import org.jetbrains.annotations.NotNull;
 
+import java.awt.event.MouseEvent;
 import java.util.Optional;
 
 import static com.intellij.rt.execution.junit.RepeatCount.N;
@@ -25,7 +29,7 @@ public class RunTestsNTimesAction extends AnAction {
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
-        RepeatCountDialog repeatCountDialog = new RepeatCountDialog();
+        RepeatCountDialog repeatCountDialog = createRepeatCountDialog(e);
         repeatCountDialog.show();
 
         getExecutionEnvironment(e)
@@ -43,6 +47,11 @@ public class RunTestsNTimesAction extends AnAction {
             return false;
         Optional<ExecutionEnvironment> environment = getExecutionEnvironment(e);
         return environment.isPresent() && environment.get().getRunProfile() instanceof JUnitConfiguration;
+    }
+
+    private static RepeatCountDialog createRepeatCountDialog(@NotNull AnActionEvent e) {
+        MouseEvent mouseEvent = (MouseEvent) e.getInputEvent();
+        return new RepeatCountDialog(mouseEvent.getXOnScreen(), mouseEvent.getYOnScreen());
     }
 
     private static Optional<ExecutionEnvironment> getExecutionEnvironment(AnActionEvent e) {

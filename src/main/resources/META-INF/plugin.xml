@@ -9,7 +9,7 @@
     <depends>JUnit</depends>
 
     <actions>
-        <action id="RunTestsNTimesAction" class="RunTestsNTimesAction" text="Run Tests N Times"
+        <action id="com.latskap.action.RunTestsNTimesAction" class="com.latskap.action.RunTestsNTimesAction" text="Run Tests N Times"
                 description="Runs test N times" icon="/icons/actionIcon.svg">
             <add-to-group group-id="Runner.Layout" anchor="last"/>
         </action>
