@@ -1,6 +1,7 @@
 package com.latskap.dialog;
 
 import com.intellij.openapi.ui.DialogWrapper;
+import com.intellij.openapi.ui.VerticalFlowLayout;
 import com.sun.istack.Nullable;
 
 import javax.swing.*;
@@ -19,12 +20,10 @@ public class RepeatCountDialog extends DialogWrapper {
     @Nullable
     @Override
     protected JComponent createCenterPanel() {
-        JPanel dialogPanel = new JPanel(new BorderLayout());
-        JLabel label = new JLabel("Repeat count:");
-        label.setPreferredSize(new Dimension(15, 20));
-        dialogPanel.add(label, BorderLayout.CENTER);
+        JPanel dialogPanel = new JPanel(new VerticalFlowLayout());
         JTextField jTextField = new JTextField();
-        jTextField.setPreferredSize(new Dimension(20, 28));
+        jTextField.setPreferredSize(new Dimension(10, 28));
+        jTextField.setToolTipText("Enter Repeat Count");
         dialogPanel.add(jTextField, BorderLayout.PAGE_END);
         repeatCount = jTextField;
         return dialogPanel;

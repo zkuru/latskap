@@ -3,7 +3,7 @@
     <name>Latskap</name>
     <vendor email="r.abuzyarova@gmail.com">Raisa Abuzyarova</vendor>
 
-    <description>This plugin allows to run tests N times quickly, without going to 'Edit Configuration' dialog.</description>
+    <description>This plugin allows to run tests N times without going to 'Edit Configurations' dialog.</description>
 
     <depends>com.intellij.modules.java</depends>
     <depends>JUnit</depends>
