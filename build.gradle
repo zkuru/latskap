@@ -20,7 +20,7 @@ intellij {
 }
 
 patchPluginXml {
-    sinceBuild '202.*'
+    sinceBuild '201.*'
     untilBuild null
     changeNotes """
       Add since build, until version <br>
