@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.latskap'
-version '1.0'
+version '1.0.1'
 
 repositories {
     mavenCentral()
@@ -17,4 +17,12 @@ dependencies {
 intellij {
     plugins = ['java', 'JUnit']
     version '2020.2'
+}
+
+patchPluginXml {
+    sinceBuild '202.*'
+    untilBuild null
+    changeNotes """
+      Add since build, until version <br>
+      <em>Version: 1.0.1</em>"""
 }

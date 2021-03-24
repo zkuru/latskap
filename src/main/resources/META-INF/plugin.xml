@@ -16,6 +16,7 @@
     </description>
 
     <depends>com.intellij.modules.java</depends>
+    <depends>com.intellij.modules.platform</depends>
     <depends>JUnit</depends>
 
     <actions>
