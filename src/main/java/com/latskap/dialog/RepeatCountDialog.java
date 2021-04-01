@@ -16,6 +16,7 @@ public class RepeatCountDialog extends DialogWrapper {
         init();
         setTitle("Set Repeat Count");
         setInitialLocationCallback(() -> new Point(x, y));
+        setResizable(false);
     }
 
     @Nullable
@@ -23,6 +24,7 @@ public class RepeatCountDialog extends DialogWrapper {
     protected JComponent createCenterPanel() {
         JPanel dialogPanel = new JPanel(new VerticalFlowLayout());
         dialogPanel.setPreferredSize(new JBDimension(100, 0));
+        dialogPanel.setMaximumSize(new JBDimension(100, 0));
         JTextField jTextField = new JTextField();
         jTextField.setPreferredSize(new Dimension(10, 28));
         jTextField.setToolTipText("Enter Repeat Count");
@@ -33,7 +35,7 @@ public class RepeatCountDialog extends DialogWrapper {
 
     @Override
     protected void doOKAction() {
-        if (!repeatCount.getText().trim().chars().allMatch(Character::isDigit))
+        if (repeatCount.getText().isEmpty() || !repeatCount.getText().trim().chars().allMatch(Character::isDigit))
             repeatCount.setText("1");
         close(OK_EXIT_CODE);
     }
