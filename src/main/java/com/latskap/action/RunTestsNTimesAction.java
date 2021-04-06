@@ -19,6 +19,7 @@ import org.jetbrains.annotations.NotNull;
 import java.awt.event.MouseEvent;
 import java.util.Optional;
 
+import static com.intellij.openapi.ui.DialogWrapper.OK_EXIT_CODE;
 import static com.intellij.rt.execution.junit.RepeatCount.N;
 
 public class RunTestsNTimesAction extends AnAction {
@@ -31,14 +32,14 @@ public class RunTestsNTimesAction extends AnAction {
     public void actionPerformed(@NotNull AnActionEvent e) {
         RepeatCountDialog repeatCountDialog = createRepeatCountDialog(e);
         repeatCountDialog.show();
-
-        getExecutionEnvironment(e)
-                .ifPresent(env -> getJUnitConfiguration(env)
-                        .ifPresent(conf -> {
-                            updateJUnitConfiguration(conf, repeatCountDialog);
-                            execute(env);
-                        })
-                );
+        if (OK_EXIT_CODE == repeatCountDialog.getExitCode())
+            getExecutionEnvironment(e)
+                    .ifPresent(env -> getJUnitConfiguration(env)
+                            .ifPresent(conf -> {
+                                updateJUnitConfiguration(conf, repeatCountDialog);
+                                execute(env);
+                            })
+                    );
     }
 
     private static boolean isEnabled(AnActionEvent e) {
