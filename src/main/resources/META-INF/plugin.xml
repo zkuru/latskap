@@ -25,4 +25,7 @@
             <add-to-group group-id="Runner.Layout" anchor="last"/>
         </action>
     </actions>
+    <extensions defaultExtensionNs="com.intellij">
+        <runLineMarkerContributor language="JAVA" implementationClass="com.latskap.lineMarker.RepeatTestsNTimesLineMarkerProvider"/>
+    </extensions>
 </idea-plugin>
