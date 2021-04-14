@@ -16,6 +16,8 @@ import com.intellij.openapi.ui.Messages;
 import com.latskap.dialog.RepeatCountDialog;
 import org.jetbrains.annotations.NotNull;
 
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.Optional;
 
@@ -30,16 +32,20 @@ public class RunTestsNTimesAction extends AnAction {
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
-        RepeatCountDialog repeatCountDialog = createRepeatCountDialog(e);
-        repeatCountDialog.show();
-        if (OK_EXIT_CODE == repeatCountDialog.getExitCode())
-            getExecutionEnvironment(e)
-                    .ifPresent(env -> getJUnitConfiguration(env)
-                            .ifPresent(conf -> {
-                                updateJUnitConfiguration(conf, repeatCountDialog);
-                                execute(env);
-                            })
-                    );
+        Optional<ExecutionEnvironment> executionEnvironment = getExecutionEnvironment(e);
+        Optional<RepeatCountDialog> repeatCountDialog = createRepeatCountDialog(e);
+        if (repeatCountDialog.isPresent()) {
+            RepeatCountDialog dialog = repeatCountDialog.get();
+            dialog.show();
+            if (OK_EXIT_CODE == dialog.getExitCode())
+                executionEnvironment
+                        .ifPresent(env -> getJUnitConfiguration(env)
+                                .ifPresent(conf -> {
+                                    updateJUnitConfiguration(conf, dialog);
+                                    execute(env);
+                                })
+                        );
+        }
     }
 
     private static boolean isEnabled(AnActionEvent e) {
@@ -50,9 +56,14 @@ public class RunTestsNTimesAction extends AnAction {
         return environment.isPresent() && environment.get().getRunProfile() instanceof JUnitConfiguration;
     }
 
-    private static RepeatCountDialog createRepeatCountDialog(@NotNull AnActionEvent e) {
-        MouseEvent mouseEvent = (MouseEvent) e.getInputEvent();
-        return new RepeatCountDialog(mouseEvent.getXOnScreen(), mouseEvent.getYOnScreen());
+    private static Optional<RepeatCountDialog> createRepeatCountDialog(@NotNull AnActionEvent e) {
+        InputEvent inputEvent = e.getInputEvent();
+        if (inputEvent instanceof MouseEvent) {
+            MouseEvent mouseEvent = (MouseEvent) inputEvent;
+            return Optional.of(new RepeatCountDialog(mouseEvent.getXOnScreen(), mouseEvent.getYOnScreen()));
+        } else if (inputEvent instanceof KeyEvent)
+            return Optional.of(new RepeatCountDialog());
+        return Optional.empty();
     }
 
     private static Optional<ExecutionEnvironment> getExecutionEnvironment(AnActionEvent e) {

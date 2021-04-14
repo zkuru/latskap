@@ -10,10 +10,13 @@ public class RepeatCountDialog extends DialogWrapper {
     private JTextField repeatCount;
 
     public RepeatCountDialog(int x, int y) {
+        this();
+        setInitialLocationCallback(() -> new Point(x, y));
+    }
+    public RepeatCountDialog() {
         super(true);
         init();
         setTitle("Set Repeat Count");
-        setInitialLocationCallback(() -> new Point(x, y));
         setResizable(false);
     }
 
