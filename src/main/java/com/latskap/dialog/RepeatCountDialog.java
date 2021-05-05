@@ -27,11 +27,11 @@ public class RepeatCountDialog extends DialogWrapper {
         JLabel label = new JLabel("repeat count:");
         label.setPreferredSize(new Dimension(100, 26));
         dialogPanel.add(label);
-        JTextField jTextField = new JTextField();
-        jTextField.setPreferredSize(new Dimension(100, 26));
-        jTextField.setToolTipText("Enter Repeat Count");
-        dialogPanel.add(jTextField);
-        repeatCount = jTextField;
+        JTextField repeatCountTextField = new JTextField();
+        repeatCountTextField.setPreferredSize(new Dimension(100, 26));
+        repeatCountTextField.setToolTipText("Enter Repeat Count");
+        dialogPanel.add(repeatCountTextField);
+        repeatCount = repeatCountTextField;
         return dialogPanel;
     }
 
@@ -40,6 +40,11 @@ public class RepeatCountDialog extends DialogWrapper {
         if (repeatCount.getText().isEmpty() || !repeatCount.getText().trim().chars().allMatch(Character::isDigit))
             repeatCount.setText("1");
         close(OK_EXIT_CODE);
+    }
+
+    @Override
+    public @org.jetbrains.annotations.Nullable JComponent getPreferredFocusedComponent() {
+        return repeatCount;
     }
 
     public JTextField getRepeatCount() {

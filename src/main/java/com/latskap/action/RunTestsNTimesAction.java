@@ -21,7 +21,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.Optional;
 
-import static com.intellij.openapi.ui.DialogWrapper.OK_EXIT_CODE;
 import static com.intellij.rt.execution.junit.RepeatCount.N;
 
 public class RunTestsNTimesAction extends AnAction {
@@ -36,8 +35,7 @@ public class RunTestsNTimesAction extends AnAction {
         Optional<RepeatCountDialog> repeatCountDialog = createRepeatCountDialog(e);
         if (repeatCountDialog.isPresent()) {
             RepeatCountDialog dialog = repeatCountDialog.get();
-            dialog.show();
-            if (OK_EXIT_CODE == dialog.getExitCode())
+            if (dialog.showAndGet()) {
                 executionEnvironment
                         .ifPresent(env -> getJUnitConfiguration(env)
                                 .ifPresent(conf -> {
@@ -45,6 +43,7 @@ public class RunTestsNTimesAction extends AnAction {
                                     execute(env);
                                 })
                         );
+            }
         }
     }
 

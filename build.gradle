@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.latskap'
-version '1.0.5'
+version '1.0.6'
 
 repositories {
     mavenCentral()
@@ -23,6 +23,6 @@ patchPluginXml {
     sinceBuild '201.*'
     untilBuild null
     changeNotes """
-      Shortcut support's added. <br>
-      <em>Version: 1.0.5</em>"""
+      Set focus in repeat count text field. <br>
+      <em>Version: 1.0.6</em>"""
 }
