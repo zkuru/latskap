@@ -4,7 +4,7 @@
     <vendor email="r.abuzyarova@gmail.com">Raisa Abuzyarova</vendor>
 
     <description>
-    <![CDATA[<p> Allows to run JUnit tests N times from Runner Layout with no need to go to 'Edit Configurations...' dialog to set repeat count.</p>
+    <![CDATA[<p> Allows to repeat JUnit tests N times from Runner Layout with no need to go to 'Edit Configurations...' dialog to set repeat count.</p>
     <p> How to use: </p>
         <ul>
             <li> Run some test(s) </li>
@@ -18,9 +18,14 @@
     <depends>com.intellij.modules.java</depends>
     <depends>com.intellij.modules.platform</depends>
     <depends>JUnit</depends>
+    <depends>TestNG-J</depends>
 
     <actions>
-        <action id="com.latskap.action.RunTestsNTimesAction" class="com.latskap.action.RunTestsNTimesAction" text="Run Tests N Times"
+        <action id="com.latskap.action.RunTestsNTimesJUnitAction" class="com.latskap.action.RunTestsNTimesJUnitAction" text="Run Tests N Times"
+                description="Runs test N times" icon="/icons/actionIcon.svg">
+            <add-to-group group-id="Runner.Layout" anchor="last"/>
+        </action>
+        <action id="com.latskap.action.RunTestsNTimesTestNgAction" class="com.latskap.action.RunTestsNTimesTestNgAction" text="Run Tests N Times"
                 description="Runs test N times" icon="/icons/actionIcon.svg">
             <add-to-group group-id="Runner.Layout" anchor="last"/>
         </action>

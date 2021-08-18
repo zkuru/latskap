@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.latskap'
-version '1.0.6'
+version '2.0'
 
 repositories {
     mavenCentral()
@@ -12,10 +12,11 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 }
 
 intellij {
-    plugins = ['java', 'JUnit']
+    plugins = ['java', 'JUnit', 'testng']
     version '2020.2'
 }
 
@@ -23,6 +24,6 @@ patchPluginXml {
     sinceBuild '201.*'
     untilBuild null
     changeNotes """
-      Set focus in repeat count text field. <br>
-      <em>Version: 1.0.6</em>"""
+      TestNG support was added. <br>
+      <em>Version: 2.0</em>"""
 }

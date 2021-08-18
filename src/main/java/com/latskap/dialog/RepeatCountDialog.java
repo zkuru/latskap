@@ -47,7 +47,7 @@ public class RepeatCountDialog extends DialogWrapper {
         return repeatCount;
     }
 
-    public JTextField getRepeatCount() {
-        return repeatCount;
+    public int getRepeatCountAsInt() {
+        return Integer.parseInt(repeatCount.getText());
     }
 }

@@ -9,7 +9,7 @@ If you often write tests with some randomized data in it you might be interested
 * Run test
 * There is a button with plugin logo:
 
-  ![run_layout](screenshots/run_layout.jpg)
+  ![run_layout](screenshots/run_layout.png)
 * You can set preferable repeat count to run test:
 
-  ![set_repeat_count](screenshots/set_repeat_count.jpg)
+  ![set_repeat_count](screenshots/repeat_count.png)
